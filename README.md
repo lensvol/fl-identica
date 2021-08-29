@@ -1,4 +1,4 @@
-# FL 1-Click Wiki
+# FL Identica
 
 [![License](https://img.shields.io/github/license/lensvol/fl-identica)](https://github.com/lensvol/fl-identica/blob/master/LICENSE) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/lensvol/fl-identica) 
 
