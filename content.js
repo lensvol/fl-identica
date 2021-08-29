@@ -9,8 +9,8 @@ function createIdAdditionObserver(itemID) {
             for (let n = 0; n < mutation.addedNodes.length; n++) {
                 let node = mutation.addedNodes[n];
                 if (node.nodeName.toLowerCase() === "div" && node.id.startsWith("tippy-")) {
-                    const idText = ` (ID: ${itemID})`;
-                    const itemName = node.querySelector("span[class='item__name']");
+                    const idText = `\nID: ${itemID}`;
+                    const itemName = node.querySelector("div[class='tooltip__desc'] p span");
                     if (itemName && !itemName.innerText.endsWith(idText)) {
                         itemName.innerText += idText;
                     }
