@@ -1,5 +1,5 @@
 
-const ITEM_IMAGE_SELECTOR = "img[class='equipped-group__available-item'], img[class='equipped-item__image']";
+const ITEM_IMAGE_SELECTOR = "img[class='equipped-group__available-item'], img[class='equipped-item__image'], div[data-quality-id] img";
 
 function createIdAdditionObserver(itemID) {
     return new MutationObserver(function (mutations, observer) {
