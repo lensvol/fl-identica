@@ -10,14 +10,14 @@ function createIdAdditionObserver(itemID) {
                 const node = mutation.addedNodes[n];
                 if (node.nodeName === "DIV" && node.id.startsWith("tippy-")) {
                     const idText = `ID: ${itemID}`;
-                    const itemName = node.querySelector("div[class='tooltip__desc'] p span");
+                    const itemDescription = node.querySelector("div[class='tooltip__desc'] p span");
                     const existingIdSpan = node.querySelector("strong[class='item-id-display']");
-                    if (itemName && !existingIdSpan) {
+                    if (itemDescription && !existingIdSpan) {
                         const idSpan = document.createElement("strong");
                         idSpan.innerText = idText;
                         idSpan.className = 'item-id-display';
                         idSpan.style.cssText = 'display: block';
-                        itemName.parentElement.insertBefore(idSpan, itemName);
+                        itemDescription.parentElement.insertBefore(idSpan, itemDescription);
                     }
                     observer.disconnect();
                 }
