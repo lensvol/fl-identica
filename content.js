@@ -1,10 +1,9 @@
-
 const INFO_BTN_CLASS_LIST = "fa fa-inverse fa-stack-1x fa-info";
 const ITEM_IMAGE_SELECTOR = "img[class='equipped-group__available-item'], img[class='equipped-item__image'], div[data-quality-id] img";
 
 function wrapButtonInContainer(button) {
     const containerDiv = document.createElement("div");
-    containerDiv.className = "storylet-root__frequency";
+    containerDiv.className = "branch__plan-buttonlet";
     containerDiv.appendChild(button);
     return containerDiv;
 }
@@ -18,11 +17,7 @@ function createInfoButton() {
     outerSpan.classList.add("buttonlet", "fa-stack", "fa-lg", "buttonlet-enabled");
     outerSpan.setAttribute("title", "Copy ID to the clipboard");
 
-    [
-        ["fa", "fa-circle", "fa-stack-2x"],
-        INFO_BTN_CLASS_LIST.split(" "),
-        ["u-visually-hidden"]
-    ].map(classNames => {
+    [["fa", "fa-circle", "fa-stack-2x"], INFO_BTN_CLASS_LIST.split(" "), ["u-visually-hidden"]].map(classNames => {
         let span = document.createElement("span");
         span.classList.add(...classNames);
         outerSpan.appendChild(span);
@@ -83,7 +78,13 @@ let testSlotObserver = new MutationObserver(function (mutations) {
                     itemDescription.appendChild(document.createTextNode(`ID: ${qualityId}`));
                 }
 
-                const storylets = node.querySelectorAll("div[class*='storylet'][data-branch-id]");
+                let storylets = node.querySelectorAll("div[class*='storylet'][data-branch-id]");
+                if (storylets.length === 0) {
+                    if (node.nodeName === "DIV" && node.classList.contains("storylet") && node.hasAttribute("data-branch-id")) {
+                        storylets = [node];
+                    }
+                }
+
                 for (const storylet of storylets) {
                     const infoButton = createInfoButton();
                     const buttonInContainer = wrapButtonInContainer(infoButton);
@@ -104,7 +105,13 @@ let testSlotObserver = new MutationObserver(function (mutations) {
                     }
                 }
 
-                const branches = node.querySelectorAll("div[class*='branch'][data-branch-id]");
+                let branches = node.querySelectorAll("div[class*='branch'][data-branch-id]");
+                if (branches.length === 0) {
+                    if (node.nodeName === "DIV" && node.classList.contains("branch")) {
+                        branches = [node];
+                    }
+                }
+
                 for (const branch of branches) {
                     const infoButton = createInfoButton();
                     const branchId = branch.attributes["data-branch-id"].value;
@@ -117,7 +124,7 @@ let testSlotObserver = new MutationObserver(function (mutations) {
 
                     const branchHeader = branch.querySelector("h2[class*='branch__title'], h2[class*='storylet__heading']");
 
-                    const otherButtons = branch.querySelectorAll("button[class*='buttonlet-container']");
+                    const otherButtons = branch.querySelectorAll("div[class*='storylet-root__frequency'] button");
                     if (otherButtons.length > 0) {
                         const container = otherButtons[0].parentElement;
                         container.insertBefore(infoButton, otherButtons[otherButtons.length - 1].nextSibling);
