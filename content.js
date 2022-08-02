@@ -2,10 +2,14 @@
 const INFO_BTN_CLASS_LIST = "fa fa-inverse fa-stack-1x fa-info";
 const ITEM_IMAGE_SELECTOR = "img[class='equipped-group__available-item'], img[class='equipped-item__image'], div[data-quality-id] img";
 
-function createInfoButton() {
+function wrapButtonInContainer(button) {
     const containerDiv = document.createElement("div");
     containerDiv.className = "storylet-root__frequency";
+    containerDiv.appendChild(button);
+    return containerDiv;
+}
 
+function createInfoButton() {
     const buttonlet = document.createElement("button");
     buttonlet.setAttribute("type", "button");
     buttonlet.className = "buttonlet-container";
@@ -25,9 +29,7 @@ function createInfoButton() {
     })
 
     buttonlet.appendChild(outerSpan);
-    containerDiv.appendChild(buttonlet);
-
-    return containerDiv;
+    return buttonlet;
 }
 
 function createIdAdditionObserver(itemID) {
@@ -84,6 +86,7 @@ let testSlotObserver = new MutationObserver(function (mutations) {
                 const storylets = node.querySelectorAll("div[class*='storylet'][data-branch-id]");
                 for (const storylet of storylets) {
                     const infoButton = createInfoButton();
+                    const buttonInContainer = wrapButtonInContainer(infoButton);
                     const storyletId = storylet.attributes["data-branch-id"].value;
 
                     infoButton.addEventListener("click", () => {
@@ -95,9 +98,32 @@ let testSlotObserver = new MutationObserver(function (mutations) {
                     const container = storylet.querySelector("div[class='storylet__title-and-description']");
                     const otherButtons = container.getElementsByClassName("storylet-root__frequency");
                     if (otherButtons.length > 0) {
+                        container.insertBefore(buttonInContainer, otherButtons[otherButtons.length - 1].nextSibling);
+                    } else {
+                        container.insertBefore(buttonInContainer, container.firstChild);
+                    }
+                }
+
+                const branches = node.querySelectorAll("div[class*='branch'][data-branch-id]");
+                for (const branch of branches) {
+                    const infoButton = createInfoButton();
+                    const branchId = branch.attributes["data-branch-id"].value;
+
+                    infoButton.addEventListener("click", () => {
+                        navigator.clipboard.writeText(branchId).then(() => {
+                            console.debug(`[FL Identica] ID ${branchId} copied to clipboard!`);
+                        })
+                    });
+
+                    const branchHeader = branch.querySelector("h2[class*='branch__title'], h2[class*='storylet__heading']");
+
+                    const otherButtons = branch.querySelectorAll("button[class*='buttonlet-container']");
+                    if (otherButtons.length > 0) {
+                        const container = otherButtons[0].parentElement;
                         container.insertBefore(infoButton, otherButtons[otherButtons.length - 1].nextSibling);
                     } else {
-                        container.insertBefore(infoButton, container.firstChild);
+                        const container = branchHeader.parentElement;
+                        container.insertBefore(wrapButtonInContainer(infoButton), container.firstChild);
                     }
                 }
             }
