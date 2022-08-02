@@ -40,6 +40,17 @@ let testSlotObserver = new MutationObserver(function (mutations) {
                         createIdAdditionObserver(itemId).observe(document, {childList: true, subtree: true});
                     });
                 }
+
+                const qualityItems = node.querySelectorAll("li[class='quality-item']");
+                for (const quality of qualityItems) {
+                    const itemName = quality.querySelector("span[class*='item__name']").textContent;
+                    const iconNode = quality.querySelector("div[data-branch-id]");
+                    const qualityId = iconNode.attributes["data-branch-id"].value;
+                    const itemDescription = quality.querySelector("p[class='quality-item__description']");
+
+                    itemDescription.appendChild(document.createElement("br"));
+                    itemDescription.appendChild(document.createTextNode(`ID: ${qualityId}`));
+                }
             }
         }
     }
