@@ -1,5 +1,34 @@
 
+const INFO_BTN_CLASS_LIST = "fa fa-inverse fa-stack-1x fa-info";
 const ITEM_IMAGE_SELECTOR = "img[class='equipped-group__available-item'], img[class='equipped-item__image'], div[data-quality-id] img";
+
+function createInfoButton() {
+    const containerDiv = document.createElement("div");
+    containerDiv.className = "storylet-root__frequency";
+
+    const buttonlet = document.createElement("button");
+    buttonlet.setAttribute("type", "button");
+    buttonlet.className = "buttonlet-container";
+
+    const outerSpan = document.createElement("span");
+    outerSpan.classList.add("buttonlet", "fa-stack", "fa-lg", "buttonlet-enabled");
+    outerSpan.setAttribute("title", "Copy ID to the clipboard");
+
+    [
+        ["fa", "fa-circle", "fa-stack-2x"],
+        INFO_BTN_CLASS_LIST.split(" "),
+        ["u-visually-hidden"]
+    ].map(classNames => {
+        let span = document.createElement("span");
+        span.classList.add(...classNames);
+        outerSpan.appendChild(span);
+    })
+
+    buttonlet.appendChild(outerSpan);
+    containerDiv.appendChild(buttonlet);
+
+    return containerDiv;
+}
 
 function createIdAdditionObserver(itemID) {
     return new MutationObserver(function (mutations, observer) {
@@ -50,6 +79,26 @@ let testSlotObserver = new MutationObserver(function (mutations) {
 
                     itemDescription.appendChild(document.createElement("br"));
                     itemDescription.appendChild(document.createTextNode(`ID: ${qualityId}`));
+                }
+
+                const storylets = node.querySelectorAll("div[class*='storylet'][data-branch-id]");
+                for (const storylet of storylets) {
+                    const infoButton = createInfoButton();
+                    const storyletId = storylet.attributes["data-branch-id"].value;
+
+                    infoButton.addEventListener("click", () => {
+                        navigator.clipboard.writeText(storyletId).then(() => {
+                            console.debug(`[FL Identica] ID ${storyletId} copied to clipboard!`);
+                        })
+                    });
+
+                    const container = storylet.querySelector("div[class='storylet__title-and-description']");
+                    const otherButtons = container.getElementsByClassName("storylet-root__frequency");
+                    if (otherButtons.length > 0) {
+                        container.insertBefore(infoButton, otherButtons[otherButtons.length - 1].nextSibling);
+                    } else {
+                        container.insertBefore(infoButton, container.firstChild);
+                    }
                 }
             }
         }
