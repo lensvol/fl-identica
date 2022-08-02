@@ -1,7 +1,7 @@
 {
   "name": "FL Identica",
   "description": "Show corresponding item ID in its tooltip.",
-  "version": "1.0",
+  "version": "1.0.0",
   "manifest_version": 2,
   "permissions": [],
   "content_scripts": [
@@ -28,8 +28,5 @@
     "32": "/images/fl-wiki-icon-32.png",
     "48": "/images/fl-wiki-icon-48.png",
     "128": "/images/fl-wiki-icon-128.png"
-  },
-  "web_accessible_resources": [
-    "inject.js"
-  ]
+  }
 }
