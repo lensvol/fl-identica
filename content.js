@@ -10,6 +10,7 @@ function wrapButtonInContainer(button) {
 
 function createInfoButton() {
     const buttonlet = document.createElement("button");
+    buttonlet.setAttribute("id", "identica-info-button");
     buttonlet.setAttribute("type", "button");
     buttonlet.className = "buttonlet-container";
 
@@ -69,7 +70,6 @@ let testSlotObserver = new MutationObserver(function (mutations) {
 
                 const qualityItems = node.querySelectorAll("li[class='quality-item']");
                 for (const quality of qualityItems) {
-                    const itemName = quality.querySelector("span[class*='item__name']").textContent;
                     const iconNode = quality.querySelector("div[data-branch-id]");
                     const qualityId = iconNode.attributes["data-branch-id"].value;
                     const itemDescription = quality.querySelector("p[class='quality-item__description']");
@@ -89,6 +89,11 @@ let testSlotObserver = new MutationObserver(function (mutations) {
                     const infoButton = createInfoButton();
                     const buttonInContainer = wrapButtonInContainer(infoButton);
                     const storyletId = storylet.attributes["data-branch-id"].value;
+
+                    let existingButtons = storylet.querySelectorAll("button[id='identica-info-button']");
+                    if (existingButtons.length > 0) {
+                        continue;
+                    }
 
                     infoButton.addEventListener("click", () => {
                         navigator.clipboard.writeText(storyletId).then(() => {
