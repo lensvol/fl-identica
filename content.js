@@ -86,14 +86,14 @@ let testSlotObserver = new MutationObserver(function (mutations) {
                 }
 
                 for (const storylet of storylets) {
-                    const infoButton = createInfoButton();
-                    const buttonInContainer = wrapButtonInContainer(infoButton);
-                    const storyletId = storylet.attributes["data-branch-id"].value;
-
                     let existingButtons = storylet.querySelectorAll("button[id='identica-info-button']");
                     if (existingButtons.length > 0) {
                         continue;
                     }
+
+                    const infoButton = createInfoButton();
+                    const buttonInContainer = wrapButtonInContainer(infoButton);
+                    const storyletId = storylet.attributes["data-branch-id"].value;
 
                     infoButton.addEventListener("click", () => {
                         navigator.clipboard.writeText(storyletId).then(() => {
@@ -118,6 +118,11 @@ let testSlotObserver = new MutationObserver(function (mutations) {
                 }
 
                 for (const branch of branches) {
+                    let existingButtons = branch.querySelectorAll("button[id='identica-info-button']");
+                    if (existingButtons.length > 0) {
+                        continue;
+                    }
+
                     const infoButton = createInfoButton();
                     const branchId = branch.attributes["data-branch-id"].value;
 
