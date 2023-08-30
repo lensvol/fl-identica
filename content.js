@@ -78,7 +78,7 @@ let testSlotObserver = new MutationObserver(function (mutations) {
                     itemDescription.appendChild(document.createTextNode(`ID: ${qualityId}`));
                 }
 
-                let storylets = node.querySelectorAll("div[class*='storylet'][data-branch-id]");
+                let storylets = node.querySelectorAll("div[class*='storylet'][data-branch-id], div[class*='persistent'][data-branch-id]");
                 if (storylets.length === 0) {
                     if (node.nodeName === "DIV" && node.classList.contains("storylet") && node.hasAttribute("data-branch-id")) {
                         storylets = [node];
