@@ -28,5 +28,10 @@
     "32": "/images/fl-wiki-icon-32.png",
     "48": "/images/fl-wiki-icon-48.png",
     "128": "/images/fl-wiki-icon-128.png"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{a37fe7aa-999c-4982-8eb0-aaee91a2ca15}"
+    }
   }
 }
