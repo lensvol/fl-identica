@@ -33,5 +33,9 @@
     "gecko": {
       "id": "{a37fe7aa-999c-4982-8eb0-aaee91a2ca15}"
     }
-  }
+  },
+  "web_accessible_resources": [{
+    "resources": ["inject.js"],
+    "matches": ["https://www.fallenlondon.com/*"]
+  }]
 }
