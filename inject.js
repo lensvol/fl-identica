@@ -1,6 +1,6 @@
 (function () {
     const DONE = 4;
-    const INFO_BTN_CLASS_LIST = "fa fa-inverse fa-stack-1x fa-info";
+    const INFO_BTN_CLASS_LIST = "fa fa-inverse fa-stack-1x fa-question";
     const ITEM_IMAGE_SELECTOR = "img[class='equipped-group__available-item'], img[class='equipped-item__image'], div[data-quality-id] img";
 
     let currentStoryletId = null;
