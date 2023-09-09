@@ -12,7 +12,7 @@
         return containerDiv;
     }
 
-    function createInfoButton() {
+    function createInfoButton(tooltipText) {
         const buttonlet = document.createElement("button");
         buttonlet.setAttribute("id", "identica-info-button");
         buttonlet.setAttribute("type", "button");
@@ -20,7 +20,7 @@
 
         const outerSpan = document.createElement("span");
         outerSpan.classList.add("buttonlet", "fa-stack", "fa-lg", "buttonlet-enabled");
-        outerSpan.setAttribute("title", "Copy ID to the clipboard");
+        outerSpan.setAttribute("title", tooltipText || "Copy ID to the clipboard");
 
         [["fa", "fa-circle", "fa-stack-2x"], INFO_BTN_CLASS_LIST.split(" "), ["u-visually-hidden"]].map(classNames => {
             let span = document.createElement("span");
@@ -84,7 +84,7 @@
 
                     let storyletRoot = node.querySelector("div.media--root div.media__body");
                     if (storyletRoot && currentStoryletId) {
-                        const infoButton = createInfoButton();
+                        const infoButton = createInfoButton("Copy storylet ID to the clipboard");
                         infoButton.addEventListener("click", () => {
                             navigator.clipboard.writeText(currentStoryletId).then(() => {
                                 console.debug(`[FL Identica] ID ${currentStoryletId} copied to clipboard!`);
@@ -114,7 +114,7 @@
                             continue;
                         }
 
-                        const infoButton = createInfoButton();
+                        const infoButton = createInfoButton("Copy storylet ID to the clipboard");
                         const buttonInContainer = wrapButtonInContainer(infoButton);
                         const storyletId = storylet.attributes["data-branch-id"].value;
 
@@ -146,7 +146,7 @@
                             continue;
                         }
 
-                        const infoButton = createInfoButton();
+                        const infoButton = createInfoButton("Copy branch ID to the clipboard");
                         const branchId = branch.attributes["data-branch-id"].value;
 
                         infoButton.addEventListener("click", () => {
