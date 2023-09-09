@@ -182,6 +182,10 @@
             return;
         }
 
+        if (targetUrl.endsWith("/api/storylet/choosebranch")) {
+            currentStoryletId = null;
+        }
+
         if (targetUrl.endsWith("/api/storylet")
             || targetUrl.endsWith("/api/storylet/goback")
             || targetUrl.endsWith("/api/storylet/begin")) {
