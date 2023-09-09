@@ -198,8 +198,6 @@
             } else {
                 currentStoryletId = null;
             }
-
-            console.debug(`[FL Identica] Current storylet ID: ${currentStoryletId}`);
         }
     }
 
