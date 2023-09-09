@@ -91,13 +91,11 @@
                             })
                         });
 
-                        const buttonInContainer = wrapButtonInContainer(infoButton);
-
                         const otherButtons = storyletRoot.getElementsByClassName("storylet-root__frequency");
                         if (otherButtons.length > 0) {
-                            otherButtons[otherButtons.length - 1].insertBefore(buttonInContainer, otherButtons[otherButtons.length - 1].lastChild);
+                            otherButtons[0].appendChild(infoButton);
                         } else {
-                            storyletRoot.insertBefore(buttonInContainer, storyletRoot.firstChild);
+                            storyletRoot.insertBefore(infoButton, storyletRoot.firstChild);
                         }
                     }
 
