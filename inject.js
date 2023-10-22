@@ -72,7 +72,15 @@
                         });
                     }
 
-                    const qualityItems = node.querySelectorAll("li[class='quality-item']");
+                    // When user filters qualities on "Myself" page, FL UI removes & inserts
+                    // individual <li> items instead of the whole container, so we need to also process them here.
+                    let qualityItems = [];
+                    if (node.nodeName === "LI" && node.classList.contains("quality-item")) {
+                        qualityItems = [node];
+                    } else {
+                        qualityItems = node.querySelectorAll("li[class='quality-item']");
+                    }
+
                     for (const quality of qualityItems) {
                         const iconNode = quality.querySelector("div[data-branch-id]");
                         const qualityId = iconNode.attributes["data-branch-id"].value;
