@@ -122,7 +122,13 @@
 
                         const infoButton = createInfoButton("Copy storylet ID to the clipboard");
                         const buttonInContainer = wrapButtonInContainer(infoButton);
-                        const storyletId = storylet.attributes["data-branch-id"].value;
+                        const storyletId = parseInt(storylet.attributes["data-branch-id"].value);
+
+                        // For some reason FBG re-used branch container for list of resettable storylets
+                        // on "Fate" page, but thankfully they sat 'data-branch-id' to 0.
+                        if (storyletId === 0) {
+                            continue;
+                        }
 
                         infoButton.addEventListener("click", () => {
                             navigator.clipboard.writeText(storyletId).then(() => {
