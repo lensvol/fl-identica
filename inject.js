@@ -91,7 +91,8 @@
                     }
 
                     let storyletRoot = node.querySelector("div.media--root div.media__body");
-                    if (storyletRoot && currentStoryletId) {
+                    let storyletImage = storyletRoot.getElementsByClassName("media__left");
+                    if (storyletRoot && storyletImage && currentStoryletId) {
                         const infoButton = createInfoButton("Copy storylet ID to the clipboard");
                         infoButton.addEventListener("click", () => {
                             navigator.clipboard.writeText(currentStoryletId).then(() => {
