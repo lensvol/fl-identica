@@ -90,21 +90,23 @@
                         itemDescription.appendChild(document.createTextNode(`ID: ${qualityId}`));
                     }
 
-                    let storyletRoot = node.querySelector("div.media--root div.media__body");
-                    let storyletImage = storyletRoot.getElementsByClassName("media__left");
-                    if (storyletRoot && storyletImage && currentStoryletId) {
-                        const infoButton = createInfoButton("Copy storylet ID to the clipboard");
-                        infoButton.addEventListener("click", () => {
-                            navigator.clipboard.writeText(currentStoryletId).then(() => {
-                                console.debug(`[FL Identica] ID ${currentStoryletId} copied to clipboard!`);
-                            })
-                        });
+                    let storyletRoot = node.querySelector("div.media--root div.media__body")
+                    if (storyletRoot && currentStoryletId) {
+                        let storyletImage = storyletRoot.getElementsByClassName("media__left");
+                        if (storyletImage) {
+                            const infoButton = createInfoButton("Copy storylet ID to the clipboard");
+                            infoButton.addEventListener("click", () => {
+                                navigator.clipboard.writeText(currentStoryletId).then(() => {
+                                    console.debug(`[FL Identica] ID ${currentStoryletId} copied to clipboard!`);
+                                })
+                            });
 
-                        const otherButtons = storyletRoot.getElementsByClassName("storylet-root__frequency");
-                        if (otherButtons.length > 0) {
-                            otherButtons[0].appendChild(infoButton);
-                        } else {
-                            storyletRoot.insertBefore(infoButton, storyletRoot.firstChild);
+                            const otherButtons = storyletRoot.getElementsByClassName("storylet-root__frequency");
+                            if (otherButtons.length > 0) {
+                                otherButtons[0].appendChild(infoButton);
+                            } else {
+                                storyletRoot.insertBefore(infoButton, storyletRoot.firstChild);
+                            }
                         }
                     }
 
