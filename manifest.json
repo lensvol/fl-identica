@@ -1,7 +1,7 @@
 {
   "name": "FL Identica",
   "description": "Show corresponding item ID in its tooltip.",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "manifest_version": 3,
   "permissions": [],
   "content_scripts": [
